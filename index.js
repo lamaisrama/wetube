@@ -1,4 +1,9 @@
 import express from "express";
+import logger from "morgan";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+
 const app = express();
 
 const PORT = 4000;
@@ -13,10 +18,19 @@ const betweenHome = (req, res, next) => {
     console.log("I'm between!");
     next();
 }
-//하나의 라우터에만 middleware 적용
-//app.get('/', betweenHome,handleHome);
-//
-app.use(betweenHome);
+
+//app.use(betweenHome);
+
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(helmet());
+app.use(logger("dev")); //morgan에는 여러 모드 있음 - tiny, combined, common, dev, short.
+
+//const middleware = (req, res, next) => {
+//   res.send("not happennig"); //send를 미들웨어가 보내면 connection을 끊음
+//}
+
 app.get('/', handleHome);
 
 app.get('/profile', handleProfile);
