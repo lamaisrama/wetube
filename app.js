@@ -12,11 +12,13 @@ const app = express();
 
 const handleListening = () => console.log(`Listening on : http://127.0.0.1:${PORT} 💚`);
 
-app.use(cookieParser());
-app.use(bodyParser.json());
+app.set("view engine", "pug");
+app.use(cookieParser());        //cookie를 전달받아서 사용할 수 있도록 만들어주는 미들웨어, 사용자 인증같은 곳에서 쿠키 검사시 사용
+app.use(bodyParser.json());     //form, json 형태로 된 body를 검사. 사용자가 웹사이트로 전달하는 정보들 검사하는 미들웨어
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(helmet());
-app.use(logger("dev")); //morgan에는 여러 모드 있음 - tiny, combined, common, dev, short.
+app.use(helmet());              //applicatio이 더 안전하도록 만들어줌
+app.use(logger("dev"));         //application에서 발생하는 모든 일들을 logging
+                                //morgan에는 여러 모드 있음 - tiny, combined, common, dev, short.
 
 
 //globalRouter
