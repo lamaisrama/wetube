@@ -1,5 +1,9 @@
-export const home = (req, res) => res.render("home", {pageTitle : "HOME"});
-//render 함수가 views 폴더에서 파일명이 home이고 확장자가 pug인 탬플릿 파일 찾은 후 보여줄 것
+import {videos} from "../db"
+
+export const home = (req, res) => {
+    res.render("home", {pageTitle : "HOME", videos} );
+
+} //render 함수가 views 폴더에서 파일명이 home이고 확장자가 pug인 탬플릿 파일 찾은 후 보여줄 것
 export const search = (req, res) => {
 
     //const searchingBy = req.query.term // ES6 이전의 코딩 방법
