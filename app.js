@@ -20,6 +20,10 @@ app.use(bodyParser.json());     //form, json 형태로 된 body를 검사. 사�
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger("dev"));         //application에서 발생하는 모든 일들을 logging
                                 //morgan에는 여러 모드 있음 - tiny, combined, common, dev, short.
+app.use(function(req, res, next) {
+    res.setHeader("Content-Security-Policy", "script-src 'self' https://archive.org");
+    return next();
+    });
 //locals라는 미들웨어 만들 것 -- logal 변수를 global로 사용할 수 있도록 해주는 것
 app.use(localsMiddleware);
 //globalRouter
@@ -27,6 +31,5 @@ app.use(routes.home, globalRouter);
 //user에 접속하면 userRouter 전체를 쓰겠다는 뜻
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
-
 //누가 app을 부르면 app object를 주겠다는 뜻
 export default app;

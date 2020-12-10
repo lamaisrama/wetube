@@ -4,7 +4,8 @@ export const videos = [
         title : 'Video Awesome',
         description : 'this is sth i love',
         views : 24,
-        videoFile : "https://www.bigbuckbunny.org/",
+        videoFile:
+        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
         creator : {
             id : 1212123,
             name : "NJ",
@@ -17,7 +18,8 @@ export const videos = [
         title : 'Video Happy',
         description : 'this is sth i like',
         views : 24,
-        videoFile : "https://www.bigbuckbunny.org/",
+        videoFile:
+        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
         creator : {
             id : 1212123,
             name : "NJ",
@@ -30,7 +32,8 @@ export const videos = [
         title : 'Video Coool',
         description : 'this is sth so funny',
         views : 24,
-        videoFile : "https://www.bigbuckbunny.org/",
+        videoFile:
+        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
         creator : {
             id : 1212123,
             name : "NJ",
