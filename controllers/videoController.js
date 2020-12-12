@@ -1,5 +1,5 @@
 import {videos} from "../db"
-
+import routes from "../routes"
 export const home = (req, res) => {
     res.render("home", {pageTitle : "HOME", videos} );
 
@@ -11,12 +11,23 @@ export const search = (req, res) => {
         query : { term: searchingBy } 
     } = req;
 
-    res.render("search", {pageTitle : "Search", searchingBy : searchingBy}); 
+    res.render("search", {pageTitle : "Search", searchingBy : searchingBy, videos}); 
 
 
 }
 //export const videos = (req, res) => res.send("Videos");
-export const upload = (req, res) => res.send("Upload", {pageTitle : "Upload"});
-export const videoDetail = (req, res) => res.send("Video Detail", {pageTitle : "Video Detail"} );
-export const editVideo = (req, res) => res.send("Edit Video", {pageTitle : "Edit Video"});
-export const deleteVideo = (req, res) => res.send("Delete Video", {pageTitle : "Delete Video"});
+export const getUpload = (req, res) => res.render("upload", {pageTitle : "Upload"});
+export const postUpload = (req, res) => {
+    console.log(req.body);
+    const {
+        body : {
+            file, title, description
+        }
+    } = req;
+    //To do : Upload and save video
+    res.redirect(routes.videoDetail(32423));
+
+}
+export const videoDetail = (req, res) => res.render("videoDetail", {pageTitle : "Video Detail"} );
+export const editVideo = (req, res) => res.render("editVideo", {pageTitle : "Edit Video"});
+export const deleteVideo = (req, res) => res.render("deleteVideo", {pageTitle : "Delete Video"});
