@@ -1,44 +1,15 @@
-export const videos = [
-    {
-        id : 324523,
-        title : 'Video Awesome',
-        description : 'this is sth i love',
-        views : 24,
-        videoFile:
-        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        creator : {
-            id : 1212123,
-            name : "NJ",
-            email : "njnj1024@gmail.com",
-        }
+import mongoose from "mongoose"
+import dotenv from "dotenv"
+dotenv.config();
 
-    },
-    {
-        id : 2342344234,
-        title : 'Video Happy',
-        description : 'this is sth i like',
-        views : 24,
-        videoFile:
-        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        creator : {
-            id : 1212123,
-            name : "NJ",
-            email : "njnj1024@gmail.com",
-        }
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser : true,
+    useFindAndModify: false
+});
 
-    },
-    {
-        id : 4234123123,
-        title : 'Video Coool',
-        description : 'this is sth so funny',
-        views : 24,
-        videoFile:
-        "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        creator : {
-            id : 1212123,
-            name : "NJ",
-            email : "njnj1024@gmail.com",
-        }
+const db = mongoose.connection;
 
-    }
-]
+const handleOpen = () => console.log("✅ Connected to DB");
+const handleError = () => console.log(`❌ Error on DB Connection:${error}`);
+db.once("open", handleOpen);
+db.on("error", handleError);
