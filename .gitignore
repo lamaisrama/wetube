@@ -123,3 +123,6 @@ dist
 node_modules
 # For security
 package-lock.json
+
+# Storage file
+videos/*
