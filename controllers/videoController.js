@@ -1,6 +1,16 @@
 import routes from "../routes"
-export const home = (req, res) => {
-    res.render("home", {pageTitle : "HOME", videos} );
+import Video from "../models/Video";
+
+
+export const home = async(req, res) => {
+    try{
+        const videos = await Video.find({});
+        console.log(videos);
+        res.render("home", {pageTitle : "HOME", videos} );
+    }catch(error){
+        console.log(error);
+        res.render("home", {pageTitle : "HOME", videos : []} );
+    }
 
 } //render 함수가 views 폴더에서 파일명이 home이고 확장자가 pug인 탬플릿 파일 찾은 후 보여줄 것
 export const search = (req, res) => {
