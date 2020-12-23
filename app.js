@@ -15,6 +15,8 @@ const handleListening = () => console.log(`Listening on : http://127.0.0.1:${POR
 
 app.use(helmet());              //applicatio이 더 안전하도록 만들어줌
 app.set("view engine", "pug");
+app.use("/uploads", express.static("uploads"));
+                                // express.static()은 middleware function으로, /uploads로 파일이 들어오면, directory에서 file을 전달해주는 기능을 함.
 app.use(cookieParser());        //cookie를 전달받아서 사용할 수 있도록 만들어주는 미들웨어, 사용자 인증같은 곳에서 쿠키 검사시 사용
 app.use(bodyParser.json());     //form, json 형태로 된 body를 검사. 사용자가 웹사이트로 전달하는 정보들 검사하는 미들웨어
 app.use(bodyParser.urlencoded({extended: true}));
