@@ -5,6 +5,8 @@ block content
         h3 Searching by : #{searchingBy}
         
     .search__videos
+        if videos.length === 0
+            h5 No Videos Found 😥
         .videos
             each video in videos
                 .search__video
