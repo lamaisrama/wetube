@@ -11,21 +11,26 @@ import { localsMiddleware } from "./middlewares";
 
 const app = express();
 
-const handleListening = () => console.log(`Listening on : http://127.0.0.1:${PORT} 💚`);
+const handleListening = () =>
+  console.log(`Listening on : http://127.0.0.1:${PORT} 💚`);
 
-app.use(helmet());              //applicatio이 더 안전하도록 만들어줌
+app.use(helmet()); //applicatio이 더 안전하도록 만들어줌
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
-                                // express.static()은 middleware function으로, /uploads로 파일이 들어오면, directory에서 file을 전달해주는 기능을 함.
-app.use(cookieParser());        //cookie를 전달받아서 사용할 수 있도록 만들어주는 미들웨어, 사용자 인증같은 곳에서 쿠키 검사시 사용
-app.use(bodyParser.json());     //form, json 형태로 된 body를 검사. 사용자가 웹사이트로 전달하는 정보들 검사하는 미들웨어
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(logger("dev"));         //application에서 발생하는 모든 일들을 logging
-                                //morgan에는 여러 모드 있음 - tiny, combined, common, dev, short.
-app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "script-src 'self' https://archive.org");
-    return next();
-    });
+app.use("/static", express.static("static"));
+// express.static()은 middleware function으로, /uploads로 파일이 들어오면, directory에서 file을 전달해주는 기능을 함.
+app.use(cookieParser()); //cookie를 전달받아서 사용할 수 있도록 만들어주는 미들웨어, 사용자 인증같은 곳에서 쿠키 검사시 사용
+app.use(bodyParser.json()); //form, json 형태로 된 body를 검사. 사용자가 웹사이트로 전달하는 정보들 검사하는 미들웨어
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(logger("dev")); //application에서 발생하는 모든 일들을 logging
+//morgan에는 여러 모드 있음 - tiny, combined, common, dev, short.
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' https://archive.org"
+  );
+  return next();
+});
 //locals라는 미들웨어 만들 것 -- logal 변수를 global로 사용할 수 있도록 해주는 것
 app.use(localsMiddleware);
 //globalRouter
