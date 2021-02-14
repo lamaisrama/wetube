@@ -3,13 +3,21 @@ import logger from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
+import mongoose from "mongoose";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import { localsMiddleware } from "./middlewares";
 import routes from "./routes";
-import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
-import { localsMiddleware } from "./middlewares";
+import globalRouter from "./routers/globalRouter";
+
+import "./passport";
+import { JavascriptModulesPlugin } from "webpack";
 
 const app = express();
+const CookieStore = MongoStore(session);
 
 const handleListening = () =>
   console.log(`Listening on : http://127.0.0.1:${PORT} 💚`);
@@ -24,13 +32,18 @@ app.use(bodyParser.json()); //form, json 형태로 된 body를 검사. 사용자
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger("dev")); //application에서 발생하는 모든 일들을 logging
 //morgan에는 여러 모드 있음 - tiny, combined, common, dev, short.
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "script-src 'self' https://archive.org"
-  );
-  return next();
-});
+
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUnitialized: false,
+    store: new CookieStore({ mongooseConnection: mongoose.connection }),
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 //locals라는 미들웨어 만들 것 -- logal 변수를 global로 사용할 수 있도록 해주는 것
 app.use(localsMiddleware);
 //globalRouter
