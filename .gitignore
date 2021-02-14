@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-  
-=======
->>>>>>> 8724f59b2d537aafdd5e073fd5d228f37961fc87
+
 # Logs
 logs
 *.log
@@ -126,3 +123,6 @@ package-lock.json
 
 # Storage file
 uploads/videos/*
+
+## static file
+static
