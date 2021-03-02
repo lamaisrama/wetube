@@ -14,13 +14,9 @@ import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 
 import "./passport";
-import { JavascriptModulesPlugin } from "webpack";
 
 const app = express();
 const CookieStore = MongoStore(session);
-
-const handleListening = () =>
-  console.log(`Listening on : http://127.0.0.1:${PORT} 💚`);
 
 app.use(helmet()); //applicatio이 더 안전하도록 만들어줌
 app.set("view engine", "pug");
